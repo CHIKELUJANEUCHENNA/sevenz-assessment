@@ -23,7 +23,7 @@ function App() {
               <div className="d-flex">
                 <SideBar />
                 <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/" element={<Dashboard />} />
                 </Routes>
               </div>
             </>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'
-import client from './apolloClient'; 
+// import client from './apolloClient'; 
 
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
@@ -14,9 +14,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    client,
-  });
+  const [login, { loading, error }] = useMutation(LOGIN_MUTATION);
 
   const handleLogin = async (e) => {
   e.preventDefault();
@@ -27,9 +25,11 @@ function Login() {
 
   try {
     const { data } = await login({ variables: { email, password } });
+    console.log(data, "data")
     const token = data.login;
+    console.log(token, "token")
     localStorage.setItem('token', token);
-    navigate('/dashboard');
+    navigate('/');
     toast.success('Login successful');
   } catch (error) {
     toast.error('Login failed. Please check your credentials and try again.');
